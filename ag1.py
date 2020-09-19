@@ -71,7 +71,9 @@ def main():  # type: () -> None
     fontsize = int(40 / screenrel)
     maxstringlength = 50
     pygame.font.init()
-    smallfont = pygame.font.SysFont('Corbel', fontsize)
+    defaultfont =  pygame.font.get_default_font()
+    customfont = defaultfont # 'Corbel'
+    smallfont = pygame.font.SysFont(customfont, fontsize)
     textcolor = (255, 220, 187) # RGB default textcolor
     cursorcolor = (187, 220, 255)
     backtextcolor = (170, 170, 170, 190) # fondo translucido de texto
@@ -378,8 +380,6 @@ def drawInventory():
         hback = (itemh + 2*pad + fontheight) * rows
         drawRect(xback,yback,wback,hback,backinvcolor) # recuadro de fondo 
         
-        print(rows,cols,cantitems,itemsperrow,itemw,itemh,wback,hback)
-
         i = 0 # indice del item en la lista de items
         #for item in inventory['items']:
         for r in range(0,rows): # por cada fila del cuadro (comienza desde cero)
