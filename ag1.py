@@ -1,3 +1,4 @@
+# Autor: Alejandro Biasin, 2020
 import pygame_textinput
 # https://github.com/Nearoo/pygame-text-input
 # otra opcion https://stackoverflow.com/questions/46390231/how-to-create-a-text-input-box-with-pygame
