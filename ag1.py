@@ -100,7 +100,8 @@ def main():  # type: () -> None
     pygame.mixer.init()
     musica = pygame.mixer.music
     # start the player in the first room
-    goToRoom(list(rooms)[0]) # Primer room de la lista
+    #goToRoom(list(rooms)[0]) # Primer room de la lista
+    goToRoom('Forest') # Primer room de la lista    
     # draw the initial screen
     draw_screen()
     # and let the game begin
@@ -336,6 +337,16 @@ def drawItem(x,y,w,h,itemimagefile):
     itemimage = pygame.transform.scale(itemimage, (int(w), int(h)))
     screen.blit(itemimage, (x, y))
 
+def Ceil(number): # reemplazo de math.ceil()
+    #return int(-1 * number // 1 * -1)
+    res = int(number)
+    return res if res == number or number < 0 else res+1
+
+def CeilDivision(number1, number2):
+    # OJO: math.ceil() Returns an int value in Python 3+, while it returns a float in Python 2.
+    # -(-3//2) da 2
+    return -(-number1 // number2)
+
 def drawInventory():
     # si no tengo nada en el inventario, mostrar mensaje
     if bool(inventory) == False:
@@ -345,7 +356,7 @@ def drawInventory():
         itemsperrow = 2 # max columns
         listaitems = list(inventory)
         cantitems = len(listaitems)
-        rows = math.ceil(cantitems / itemsperrow)
+        rows = CeilDivision(cantitems, itemsperrow)
         if cantitems > itemsperrow:
             cols = itemsperrow
         else:
@@ -354,8 +365,8 @@ def drawInventory():
         pad = 5 # pixels de padding entre objetos
         aspectw = 9
         aspecth = 8
-        itemw = width/aspectw
-        itemh = height/aspecth
+        itemw = Ceil(width/aspectw)
+        itemh = Ceil(height/aspecth)
         # calcular recuadro en funcion a la cantidad de items
         fontheight = fontsize
         xback = 10
@@ -366,10 +377,12 @@ def drawInventory():
         hback = (itemh + 2*pad + fontheight) * rows
         drawRect(xback,yback,wback,hback,backinvcolor) # recuadro de fondo 
         
+        print(rows,cols,cantitems,itemsperrow,itemw,itemh,wback,hback)
+
         i = 0 # indice del item en la lista de items
         #for item in inventory['items']:
-        for r in range(rows): # por cada fila del cuadro (comenza desde cero)
-            for c in range(cols): # por cada columna del cuadro (comenza desde cero)
+        for r in range(0,rows): # por cada fila del cuadro (comienza desde cero)
+            for c in range(0,cols): # por cada columna del cuadro (comienza desde cero)
                 #print ('r=' + str(r) + ', c=' + str(c))
                 if i < cantitems:
                     x = (xback + pad) + (itemw + pad) * c
@@ -415,31 +428,6 @@ def filter_nonprintable(texto):
 
 def setRooms():
     global rooms
-    # A dictionary linking a room to other rooms. Properties:
-    # * Room
-    #   - desc: to describe the room or item. [begins with Uppercase and ends with dot]
-    #   - background : image of the room
-    #   - directions: where to go from this room
-    #   - music: background mp3 music for this room
-    #   * Item
-    #     - image: image to display in the inventory
-    #     - roomimage: image to display on top of the original room background
-    #     - roomxy: position in the room
-    # TODO: ¿como hacer dinamica una descripcion?
-    # ¿y si uso items dentro de items? EJ: key behind bushes, knife inside box, etc.
-    #     - roomdesc: brief description of the item while still in the room
-    #     - desc: item description
-    #     - descwords: different words (synonims) that match the item 
-    #  ¿Como hacer para modificar la imagen/descripcion del item en funcion a eventos pasados?
-    #     - takeable: whether this item can ba taken and put in our inventory
-    #     - openable: Para cajas, cajones, puertas.
-    #     - locked: Si es True, para poder abrirse con 'open' primero hay que usar el 'unlockeritem'
-    #     - unlockeritem: el item de inventario a usar para destrabar y poder abrir este item/objeto de room.
-    #     - unlockingtext: El mensaje a mostrar al destrabar un item/objeto de room.
-    #     - mixwith: el otro item con el cual me puedo mergear y summonear uno nuevo (del ghostdict)
-    #     - iteminside: Es otro item que hay dentro (esta en el room), y queda visible en el room si es abierto este.
-    #     - visible: Indica si un item en el room es visible. Si no lo es, antes hay que abrir otro item.
-    #     - opened: Indica si el item esta abierto.
     rooms = {
         'Forest' : {
             'desc' : 'You are in a deep and millenary forest.',
