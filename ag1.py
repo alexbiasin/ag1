@@ -73,6 +73,7 @@ def main():  # type: () -> None
     pygame.font.init()
     defaultfont =  pygame.font.get_default_font()
     customfont = defaultfont # 'Corbel'
+    customfont = None
     smallfont = pygame.font.SysFont(customfont, fontsize)
     textcolor = (255, 220, 187) # RGB default textcolor
     cursorcolor = (187, 220, 255)
