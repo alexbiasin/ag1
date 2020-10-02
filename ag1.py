@@ -418,7 +418,8 @@ def doQuit():
     globalMessage(randomString(['Bye bye!','We\'ll miss you...','Don\'t be frustrated. You\'ll make it next time.']))
     draw_screen()
     sleep(1)
-    musica.stop()
+    if has_audio:
+        musica.stop()
     pygame.quit()
     quit()
 
