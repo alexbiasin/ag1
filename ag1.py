@@ -47,7 +47,7 @@ class Player(pygame.sprite.Sprite):
         #self.rect = self.image.get_rect() # Get rect of some size as 'image'.
 
     def loadImages(self):        
-        imall = pygame.image.load(normalizePath('images/man-all.trn'))
+        imall = pygame.image.load(normalizePath('images/man-all.png'))
         imall = imall.convert_alpha() # TEST
         images_per_direction = 12 # en base a la imagen
         directions = 4
@@ -652,7 +652,7 @@ def comandoUse(item1, item2):
 def loadImage(imagepath, scale_width=0, scale_height=0):
     # Uso el dictionary cached_images para almacenar filenames en key y pixels de imagen en value.
     # Reemplazo las llamadas a pygame.image.load()
-    # OJO: os.path.join('images','pepe.trn') se puede usar para migrar a otro S.O.
+    # OJO: os.path.join('images','pepe.png') se puede usar para migrar a otro S.O.
     # J P G => S L D
     # P N G => T R N
     # M P 3 => S N D
@@ -904,8 +904,8 @@ def setRooms():
     rooms = {
         'Forest' : {
             'desc' : 'You are in a deep and millenary forest.',
-            'background' : 'images/bosque.sld',
-            'imagemap' : 'images/bosque_map.sld',
+            'background' : 'images/bosque.jpg',
+            'imagemap' : 'images/bosque_map.jpg',
             'directions' : {
                '1' : 'Beach',
                '2' : 'ForestBif'
@@ -915,10 +915,10 @@ def setRooms():
                 'ForestBif' : [80, 1000, Dir.E],
                 'Beach' : [1845, 1040, Dir.W]
                 },
-            'music' : 'sounds/grillos.snd',
+            'music' : 'sounds/grillos.mp3',
             'items' : {
                'stick' : {
-                   'image' : 'images/stick.trn',
+                   'image' : 'images/stick.png',
                    'roomdesc' : 'a stick',
                    'desc' : 'A heavy and strong wood stick',
                    'descwords' : ['branch','stick'],
@@ -944,7 +944,7 @@ def setRooms():
                    'takeable' : False
                    },
                'key' : {
-                   'image' : 'images/key.trn',
+                   'image' : 'images/key.png',
                    'roomdesc' : 'a key behind the bushes',
                    'desc' : 'It\'s a golden key',
                    'descwords' : ['key'],
@@ -959,8 +959,8 @@ def setRooms():
             },
         'Beach' : {
             'desc' : 'This is a quiet and sunny beach.',
-            'background' : 'images/playa-isla.sld',
-            'imagemap' : 'images/playa-isla_map.sld',
+            'background' : 'images/playa-isla.jpg',
+            'imagemap' : 'images/playa-isla_map.jpg',
             'directions' : {
                '1' : 'Forest',
                '2' : 'Deck'
@@ -969,10 +969,10 @@ def setRooms():
                 'Forest' : [75, 970, Dir.E],
                 'Deck' : [550, 1020, Dir.W]
                 },
-            'music' : 'sounds/seawaves.snd',
+            'music' : 'sounds/seawaves.mp3',
             'items' : {
                'sand' : {
-                   'image' : 'images/sand.trn',
+                   'image' : 'images/sand.png',
                    'desc' : 'Just, you know, sand.',
                    'visible' : True,
                    'roomdesc' : 'sand',
@@ -986,8 +986,8 @@ def setRooms():
             },
         'ForestZZ' : {
             'desc' : 'This part of the forest feels a bit dizzy.',
-            'background' : 'images/bosqueZZ.sld',
-            'imagemap' : 'images/bosqueZZ_map.sld',
+            'background' : 'images/bosqueZZ.jpg',
+            'imagemap' : 'images/bosqueZZ_map.jpg',
             'directions' : {
                '1' : 'ForestBif',
                '2' : 'Mill'
@@ -996,10 +996,10 @@ def setRooms():
                 'ForestBif' : [780, 723, Dir.S],
                 'Mill' : [705, 1020, Dir.N]
                 },
-            'music' : 'sounds/grillos.snd',
+            'music' : 'sounds/grillos.mp3',
             'items' : {
                'knife' : {
-                   'image' : 'images/knife.trn',
+                   'image' : 'images/knife.png',
                    'roomdesc' : 'a knife beneath the tree',
                    'desc' : 'Some rusty knife',
                    'descwords' : ['knife','blade','cutter'],
@@ -1014,8 +1014,8 @@ def setRooms():
             },
         'ForestBif' : {
             'desc' : 'The same forest with bifurcated paths.',
-            'background' : 'images/bosqueBif.sld',
-            'imagemap' : 'images/bosqueBif_map.sld',
+            'background' : 'images/bosqueBif.jpg',
+            'imagemap' : 'images/bosqueBif_map.jpg',
             'directions' : {
                '1' : 'Waterfall',
                '2' : 'Forest',
@@ -1026,10 +1026,10 @@ def setRooms():
                 'Forest' : [1296, 747, Dir.W],
                 'ForestZZ' : [740, 1000, Dir.N]
                 },
-            'music' : 'sounds/grillos.snd',
+            'music' : 'sounds/grillos.mp3',
             'items' : {
                'feather' : {
-                   'image' : 'images/feather.trn',
+                   'image' : 'images/feather.png',
                    'desc' : 'A nice looking feather. I\'m sure the bird does not need it anymore.',
                    'roomdesc' : 'a feather',
                    'visible' : True,
@@ -1043,20 +1043,20 @@ def setRooms():
             },                
         'Mill' : {
             'desc' : 'This area of the country has a water mill and a sign.',
-            'background' : 'images/molino-agua.sld',
-            'imagemap' : 'images/molino-agua_map.sld',
+            'background' : 'images/molino-agua.jpg',
+            'imagemap' : 'images/molino-agua_map.jpg',
             'layers' : {
                 'mill-bridge' : {
                     'z' : 1006,
                     'xfrom' : 0,
                     'xto' : 430,
-                    'layerimage' : 'images/mill-bridge.trn'
+                    'layerimage' : 'images/mill-bridge.png'
                     },
                 'mill-sign' : {
                     'z' : 1080,
                     'xfrom' : 1659,
                     'xto' : 1915,
-                    'layerimage' : 'images/mill-sign.trn'
+                    'layerimage' : 'images/mill-sign.png'
                     }
                 },
             'directions' : {
@@ -1067,17 +1067,17 @@ def setRooms():
                 'ForestZZ' : [80, 950, Dir.E],
                 'Deck' : [1815, 995, Dir.W]
                 },
-            'music' : 'sounds/grillos.snd',
+            'music' : 'sounds/grillos.mp3',
             'items' : {
                'sign' : {
-                   'image' : 'images/xxx.trn',
+                   'image' : 'images/xxx.png',
                    'desc' : 'a sign that explains how to escape the forest by going left, take another left, go up the cliff, and down the hill, and the rest was erased by some funny guy. Maybe you can write your own path...',
                    'roomdesc' : 'a wooden sign',
                    'visible' : True,
                    'takeable' : False
                 },
                'ink' : {
-                   'image' : 'images/ink.trn',
+                   'image' : 'images/ink.png',
                    'desc' : 'A full jar of strange ink. It may seem black but when you look at it closely, it has an uncommon glow.',
                    'roomdesc' : 'ink',
                    'visible' : True,
@@ -1091,14 +1091,14 @@ def setRooms():
             },
         'Deck' : {
             'desc' : 'From here, you can enter the forest from the beach.',
-            'background' : 'images/beach-forest.sld',
-            'imagemap' : 'images/beach-forest_map.sld',
+            'background' : 'images/beach-forest.jpg',
+            'imagemap' : 'images/beach-forest_map.jpg',
             'layers' : {
                 'beach-bench' : {
                     'z' : 1000,
                     'xfrom' : 228,
                     'xto' : 747,
-                    'layerimage' : 'images/beach-bench.trn'
+                    'layerimage' : 'images/beach-bench.png'
                     }
                 },
             'directions' : {
@@ -1109,24 +1109,24 @@ def setRooms():
                 'Beach' : [1434, 667, Dir.S],
                 'Mill' : [1065, 1017, Dir.N]
                 },
-            'music' : 'sounds/seawaves.snd',
+            'music' : 'sounds/seawaves.mp3',
             'items' : {
                'deck' : {
-                   'image' : 'images/xxx.trn',
+                   'image' : 'images/xxx.png',
                    'desc' : 'a deck that connects the beach with the forest. You can walk on it.',
                    'roomdesc' : 'a wooden deck',
                    'visible' : True,
                    'takeable' : False
                 },
                'bench' : {
-                   'image' : 'images/xxx.trn',
+                   'image' : 'images/xxx.png',
                    'desc' : 'a not-so-confy wooden bench. And no, you can\'t sit there.',
                    'roomdesc' : 'a wooden bench',
                    'visible' : True,
                    'takeable' : False
                 },
                'paper' : {
-                   'image' : 'images/paper.trn',
+                   'image' : 'images/paper.png',
                    'desc' : 'A full jar of strange ink. It may seem black but when you look at it closely, it has an uncommon glow.',
                    'roomdesc' : 'a piece of paper left on the floor',
                    'visible' : True,
@@ -1140,12 +1140,12 @@ def setRooms():
             },
         'Waterfall' : {
             'desc' : 'An extremelly beautiful waterfall crossed by a bridge.',
-            'background' : 'images/waterfall-bridge.sld',
-            'imagemap' : 'images/waterfall-bridge_map.sld',
+            'background' : 'images/waterfall-bridge.jpg',
+            'imagemap' : 'images/waterfall-bridge_map.jpg',
             'blockages' : {
                 '1' : {
                     'active' : True,
-                    'blockimage' : 'images/bridge-blockage.trn',
+                    'blockimage' : 'images/bridge-blockage.png',
                     }
                 },
             'directions' : {
@@ -1156,17 +1156,17 @@ def setRooms():
                 'End' : [730, 542, Dir.E],
                 'ForestBif' : [1162, 542, Dir.W]
                 },
-            'music' : 'sounds/waterfall.snd',
+            'music' : 'sounds/waterfall.mp3',
             'items' : {
                'bridge' : {
-                   'image' : 'images/xxx.trn',
+                   'image' : 'images/xxx.png',
                    'desc' : 'a bridge that leads outside the forest.',
                    'roomdesc' : 'a bridge',
                    'visible' : True,
                    'takeable' : False
                 },
                'blockage' : {
-                   'image' : 'images/xxx.trn',
+                   'image' : 'images/xxx.png',
                    'desc' : 'some magical blockage over the bridge. Yo cannot pass through it.',
                    'roomdesc' : 'a blockage',
                    'visible' : True,
@@ -1180,14 +1180,14 @@ def setRooms():
             },
         'End' : {
             'desc' : 'You have finally arrived to the end of this game. Hope to see you again in the next one.',
-            'background' : 'images/grass-bottle.sld',
-            'imagemap' : 'images/grass-bottle_map.sld',
+            'background' : 'images/grass-bottle.jpg',
+            'imagemap' : 'images/grass-bottle_map.jpg',
             'layers' : {
                 'bottle-tree' : {
                     'z' : 616,
                     'xfrom' : 303,
                     'xto' : 608,
-                    'layerimage' : 'images/bottle-tree.trn'
+                    'layerimage' : 'images/bottle-tree.png'
                     }
                 },
             'directions' : {
@@ -1196,7 +1196,7 @@ def setRooms():
             'from' : {
                 'Waterfall' : [1382, 648, Dir.W]
                 },
-            'music' : 'sounds/magical.snd',
+            'music' : 'sounds/magical.mp3',
             'items' : {            
               }
             }
@@ -1212,7 +1212,7 @@ def setItems():
     # dictionary of items that will be available later on
     ghostitems = {
             'bayonet' : {
-                'image' : 'images/bayonet.trn',
+                'image' : 'images/bayonet.png',
                 'roomdesc' : 'a bayonet',
                 'desc' : 'A handy although not that sharp custom bayonet',
                 'descwords' : ['spear','bayonet'],
@@ -1221,7 +1221,7 @@ def setItems():
                 'takeable' : False
             },
             'papyrus' : {
-                'image' : 'images/papyrus.trn',
+                'image' : 'images/papyrus.png',
                 'roomdesc' : 'a piece of papyrus',
                 'desc' : 'An oldish handmade papyrus. It almost seem real.',
                 'descwords' : ['papyrus'],
@@ -1234,7 +1234,7 @@ def setItems():
                 'takeable' : False
             },
             'pen' : {
-                'image' : 'images/pen.trn',
+                'image' : 'images/pen.png',
                 'roomdesc' : 'a pen',
                 'desc' : 'A pen with strange ink, ready to be used.',
                 'descwords' : ['pen'],
@@ -1247,7 +1247,7 @@ def setItems():
                 'takeable' : False
             },
             'script' : {
-                'image' : 'images/script.trn',
+                'image' : 'images/script.png',
                 'roomdesc' : 'a script',
                 'desc' : 'A very unintelligible script.',
                 'descwords' : ['script'],
@@ -1260,7 +1260,7 @@ def setItems():
                 'takeable' : False
             },
             'spell' : {
-                'image' : 'images/spell.trn',
+                'image' : 'images/spell.png',
                 'roomdesc' : 'a spell',
                 'desc' : 'An "Open Spell" summoned all by yourself. Yeah!',
                 'descwords' : ['spell'],
