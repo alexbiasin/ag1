@@ -390,7 +390,7 @@ def main():  # type: () -> None
         musica = pygame.mixer.music
         has_audio = True
     except Exception as err:
-        log('INFO','Error '+err)
+        log('INFO','Error: No audio device')
         has_audio = False
         
     # Setup the player sprite and group
