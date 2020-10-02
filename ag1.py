@@ -69,14 +69,14 @@ class Player(pygame.sprite.Sprite):
                 dif = w - right
                 if (dif < 0): # ajuste por redondeo
                     surf_w += dif
-                #print('player:',w,h,left,upper,each_w,each_h,xpad,ypad,surf_w, surf_h,dif)
+                log('INFO','player:',w,h,left,upper,each_w,each_h,xpad,ypad,surf_w, surf_h,dif)
                 
                 # crop de cada subimagen
                 im = imall.subsurface((left, upper, surf_w, surf_h))
                 im_row.append(im)
                 
             self.images.append(im_row)
-        #print(self.images)
+        log('DEBUG',self.images)
             
     def getColor(self, x=-1, y=-1):
         # devuelve el color del mapa de la coordenada x,y (si no se pasan, se usa foot)
@@ -100,9 +100,9 @@ class Player(pygame.sprite.Sprite):
         if scale < minscale:
             if scale < errorscale:
                 scale = 0
-                #print('error scale! ',scale, ' con color ',color)
+                log('DEBUG','error scale! ',scale, ' con color ',color)
             else:
-                #print('minscale! ',scale, ' con color ',color)
+                log('DEBUG','minscale! ',scale, ' con color ',color)
                 scale = minscale
         return scale
     
@@ -119,7 +119,7 @@ class Player(pygame.sprite.Sprite):
         G = self.getGreenColor(color)
         if (G > 100) and (G < 200): 
             blockid = (G - 100) // 10 # decena del color verde
-            #print('block id: ',blockid)
+            log('DEBUG','block id: ',blockid)
             if rooms[currentRoom]['blockages'][str(blockid)]['active'] == True:
                 return True
         return False
@@ -159,12 +159,12 @@ class Player(pygame.sprite.Sprite):
             y = self.yfoot - cur_height
             self.moveRectTo(x, y)
         else:
-            print('OJO, posicion prohibida!', self.xfoot, self.yfoot)
+            log('INFO','OJO, posicion prohibida!', self.xfoot, self.yfoot)
 
     def moveRectTo(self, x, y):
         self.rect.x = x # no funciona el metodo rect.move(x,y)
         self.rect.y = y
-        #print('rect moved to ',x,y)
+        log('DEBUG','rect moved to ',x,y)
 
     def setPosition(self, x, y, direction):
         self.direction = direction
@@ -187,7 +187,7 @@ class Player(pygame.sprite.Sprite):
         dx = cur_width - new_width
         dy = cur_height - new_height
         if (dx != 0 or dy != 0):
-            #print('scaled by ' , self.scale)
+            log('DEBUG','scaled by ' , self.scale)
             self.image = pygame.transform.scale(self.image, (new_width, new_height))        
         
     def update(self, keys):
@@ -235,7 +235,7 @@ class Player(pygame.sprite.Sprite):
                         self.cycleImage()                
                         self.moveFeetTo(new_x, new_y)
                         self.setRectByFootAndScale()
-                    #print(self.direction)
+                    log('DEBUG',self.direction)
                 else:
                     has_moved = False
         return has_moved
@@ -311,29 +311,36 @@ def main():  # type: () -> None
     global cached_images
     global cached_sounds
     global dirtyscreen
+    global log_level
 
+    log_level = 'DEBUG' # NONE , INFO , DEBUG
     # En pygame:
     #  - se usa Surface para representar la "apariencia", y
     #  - se usa Rect para representar la posicion, de un objeto.
     #  - se hereda de pygame.sprite.Sprite para crear sprites, y con Group se los agrupa.
 
     # Inicializar PyGame y pantalla
+    log('DEBUG','Init')
     pygame.init()
     screenrel = 1.5
     width = int(pygame.display.Info().current_w / screenrel)
     height = int(pygame.display.Info().current_h / screenrel)
     # posicionar la ventana centrada
+    log('DEBUG','Center window')
     xc = ( pygame.display.Info().current_w - width ) / 2
     yc = ( pygame.display.Info().current_h - height ) / 2
     os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (xc,yc) 
     # los doble parentesis son "2-item sequence"
+    log('DEBUG','Setting display mode')
     screen = pygame.display.set_mode((width, height)) # the screen is a Surface!
-    #print('Initial size: ',(width, height))
+    log('INFO','Initial size: ',(width, height))
     gamename = 'Alex\'s First Graphic Adventure Game'
+    log('DEBUG','Setting caption')
     pygame.display.set_caption(gamename)
     cached_images = {}
     dirtyscreen = True
     # en vez de pygame.time.delay(100), usar clock para controlar los FPS
+    log('DEBUG','Init clock')
     clock = pygame.time.Clock()
     FPS = 15 # Frames per second.
     # Message Box
@@ -342,14 +349,18 @@ def main():  # type: () -> None
     message_time = 0
     previoustext = ''    
     # defining a font 
-    fontsize = int(40 / screenrel)
+    #fontsize = int(40 / screenrel) # para default/none
+    fontsize = int(28 / screenrel) # para Arial
     maxstringlength = 50
     pygame.font.init()
     #defaultfont =  pygame.font.get_default_font()
     #customfont = defaultfont # 'Corbel'
-    customfont = None
-    #smallfont = pygame.font.SysFont(customfont, fontsize)
-    smallfont = pygame.font.Font(customfont, fontsize)
+    #customfont = None
+    customfont = 'Arial'
+    log('DEBUG','Setting small Font')
+    smallfont = pygame.font.SysFont(customfont, fontsize)
+    #smallfont = pygame.font.Font(customfont, fontsize)
+    log('DEBUG','Setting colors')
     textcolor = (255, 220, 187) # RGB default textcolor
     cursorcolor = (187, 220, 255)
     backtextcolor = (170, 170, 170, 190) # fondo translucido de texto
@@ -358,18 +369,21 @@ def main():  # type: () -> None
     textX = width/3
     textY = height/3
     textinputX = 10
-    textinputY = height-fontsize-10
+    textinputY = height-fontsize-13
     show_inventory = False
     currentRoom = ''
     run = True
     # Create TextInput-object (3rd party library)
-    textinput = pygame_textinput.TextInput(text_color = textcolor, cursor_color = cursorcolor, font_size = fontsize, max_string_length = maxstringlength)    
+    log('DEBUG','Init textinput')
+    textinput = pygame_textinput.TextInput(text_color = textcolor, cursor_color = cursorcolor, font_family = customfont, font_size = fontsize, max_string_length = maxstringlength)
     
+    log('DEBUG','Setting rooms and items')
     setRooms()
     setItems()
     
     # Cargar sonido
     #grillos = pygame.mixer.Sound('grillos.wav')
+    log('DEBUG','Init sounds')
     pygame.mixer.init()
     musica = pygame.mixer.music
     # Setup the player sprite and group
@@ -383,7 +397,15 @@ def main():  # type: () -> None
     # and let the game begin
     gameLoop()
 
-
+def log(level, *arg):
+    # log_level:
+    #   NONE:  no escribir nada
+    #   INFO:  solo infotmativos
+    #   DEBUG: mas informacion para debugear
+    if log_level != 'NONE':
+        if (level == 'INFO') or (log_level == 'DEBUG' and level == 'DEBUG'):
+            print(arg)
+    
 def doQuit():
     # Desactivar sonido y video, y salir
     globalMessage(randomString(['Bye bye!','We\'ll miss you...','Don\'t be frustrated. You\'ll make it next time.']))
@@ -429,7 +451,7 @@ def drawMessage():
             maxlen = len(line)
     #w = (len(global_text)*aspectw + dw) / lineas_recuadro # ancho de la caja de texto (teniendo en cuenta wrap)
     w = int(maxlen * aspectw) + dw
-    fh = fontsize + dh # alto de una linea de texto
+    fh = fontsize + dh + 4 # alto de una linea de texto
     h = fh * lineas_recuadro # altura total del recuadro (teniendo en cuenta wrap)
     x = width/2 - w/2
     y = height/2 - h/2
@@ -685,7 +707,7 @@ def goToRoom(newroom):
     bckh = background.get_height()
     bckwrel = bckw / width
     bckhrel = bckh / height
-    #print('background original size:', bckw, bckh, bckwrel, bckhrel, width, height)
+    log('INFO','background original size:', bckw, bckh, bckwrel, bckhrel, width, height)
     background = pygame.transform.scale(background, (width, height)) # devuelve Surface
     # Cargar el mapa de escalas correspondiente al fondo
     imagemap = rooms[newroom]['imagemap']
@@ -700,7 +722,7 @@ def goToRoom(newroom):
     musica.play(-1) # If the loops is -1 then the music will repeat indefinitely.
     # obtengo coordenadas y direction del player al ingresar a este room desde el anterior
     coords = rooms[newroom]['from'][currentRoom]    
-    #print('Yendo de ',currentRoom,' a ',newroom, coords)
+    log('INFO','Yendo de ',currentRoom,' a ',newroom, coords)
     currentRoom = newroom
     #textcolor = (34, 120, 87)
     # convertir coordenadas externas a internas
@@ -710,11 +732,11 @@ def goToRoom(newroom):
     keys_allowed = True
     
 def relativeW(x):
-    #print('relativeW: ',x,bckwrel,int(x / bckwrel))
+    log('DEBUG','relativeW: ',x,bckwrel,int(x / bckwrel))
     return int(x / bckwrel)
     
 def relativeH(y):
-    #print('relativeH: ',y,bckhrel,int(y / bckhrel))
+    log('DEBUG','relativeH: ',y,bckhrel,int(y / bckhrel))
     return int(y / bckhrel)
 
 def drawRect(x,y,w,h,color):
@@ -755,7 +777,7 @@ def drawInventory():
         itemw = Ceil(width/aspectw)
         itemh = Ceil(height/aspecth)
         # calcular recuadro en funcion a la cantidad de items
-        fontheight = fontsize
+        fontheight = fontsize + 4
         xback = 10
         yback = 10
         wback = (itemw + 2*pad) * cols
@@ -793,7 +815,7 @@ def draw_screen():
     draw_layers()
 
     # Caja translucida para el textInput
-    drawRect(textinputX-3,textinputY-3,maxstringlength*9,fontsize+5,backtextcolor)
+    drawRect(textinputX-3,textinputY-3,maxstringlength*9,fontsize+8,backtextcolor)
     # Blit textInput surface onto the screen
     screen.blit(textinput.get_surface(), (textinputX, textinputY))
 
@@ -823,7 +845,7 @@ def draw_layers():
             layerimage = layers[layer]['layerimage']
             # determino si el player se superpone con este layer
             if player.isEclipsedByLayer(z, xfrom, xto):
-                #print(layer,z,xfrom,xto,layerimage)
+                log('DEBUG',layer,z,xfrom,xto,layerimage)
                 imlayer = loadImage(layerimage, width, height) # devuelve Surface
                 screen.blit(imlayer, (0, 0))
 
@@ -844,10 +866,10 @@ def randomString(stringList):
     return selected
 
 def filter_nonprintable(texto):
-    #print('antes  : '+texto)
+    log('DEBUG','antes  : '+texto)
     #textof = filter(lambda x: x in string.printable, texto) # filtrar caracteres no imprimibles
     textof = ''.join(c for c in texto if not unicodedata.category(c).startswith('C'))
-    #print('despues: '+textof)
+    log('DEBUG','despues: '+textof)
     return textof
 
 # A dictionary linking a room to other rooms. Properties:
