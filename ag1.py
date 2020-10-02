@@ -312,6 +312,7 @@ def main():  # type: () -> None
     global cached_sounds
     global dirtyscreen
     global log_level
+    global has_audio
 
     log_level = 'DEBUG' # NONE , INFO , DEBUG
     # En pygame:
@@ -384,8 +385,14 @@ def main():  # type: () -> None
     # Cargar sonido
     #grillos = pygame.mixer.Sound('grillos.wav')
     log('DEBUG','Init sounds')
-    pygame.mixer.init()
-    musica = pygame.mixer.music
+    try:
+        pygame.mixer.init()
+        musica = pygame.mixer.music
+        has_audio = True
+    except Exception as err:
+        log('INFO','Error '+err)
+        has_audio = False
+        
     # Setup the player sprite and group
     player = Player()
     sprites = pygame.sprite.Group(player)
@@ -687,7 +694,8 @@ def normalizePath(input_path):
 
 def loadMusic(musicpath):
     musicpath_ok = normalizePath(musicpath)
-    musica.load(musicpath_ok)
+    if has_audio:
+        musica.load(musicpath_ok)
 
 def goToRoom(newroom):
     global currentRoom
@@ -718,8 +726,10 @@ def goToRoom(newroom):
     tema = rooms[newroom]['music']
     #print ('yendo de ' + currentRoom + ' a ' + newroom + ' con tema ' + tema)
     #musica.load(tema)
-    loadMusic(tema)
-    musica.play(-1) # If the loops is -1 then the music will repeat indefinitely.
+    if has_audio:
+        loadMusic(tema)
+        musica.play(-1) # If the loops is -1 then the music will repeat indefinitely.
+        
     # obtengo coordenadas y direction del player al ingresar a este room desde el anterior
     coords = rooms[newroom]['from'][currentRoom]    
     log('INFO','Yendo de ',currentRoom,' a ',newroom, coords)
