@@ -915,7 +915,7 @@ def setRooms():
                 'ForestBif' : [80, 1000, Dir.E],
                 'Beach' : [1845, 1040, Dir.W]
                 },
-            'music' : 'sounds/grillos.mp3',
+            'music' : 'sounds/grillos.ogg',
             'items' : {
                'stick' : {
                    'image' : 'images/stick.png',
@@ -969,7 +969,7 @@ def setRooms():
                 'Forest' : [75, 970, Dir.E],
                 'Deck' : [550, 1020, Dir.W]
                 },
-            'music' : 'sounds/seawaves.mp3',
+            'music' : 'sounds/seawaves.ogg',
             'items' : {
                'sand' : {
                    'image' : 'images/sand.png',
@@ -996,7 +996,7 @@ def setRooms():
                 'ForestBif' : [780, 723, Dir.S],
                 'Mill' : [705, 1020, Dir.N]
                 },
-            'music' : 'sounds/grillos.mp3',
+            'music' : 'sounds/grillos.ogg',
             'items' : {
                'knife' : {
                    'image' : 'images/knife.png',
@@ -1026,7 +1026,7 @@ def setRooms():
                 'Forest' : [1296, 747, Dir.W],
                 'ForestZZ' : [740, 1000, Dir.N]
                 },
-            'music' : 'sounds/grillos.mp3',
+            'music' : 'sounds/grillos.ogg',
             'items' : {
                'feather' : {
                    'image' : 'images/feather.png',
@@ -1067,7 +1067,7 @@ def setRooms():
                 'ForestZZ' : [80, 950, Dir.E],
                 'Deck' : [1815, 995, Dir.W]
                 },
-            'music' : 'sounds/grillos.mp3',
+            'music' : 'sounds/grillos.ogg',
             'items' : {
                'sign' : {
                    'image' : 'images/xxx.png',
@@ -1109,7 +1109,7 @@ def setRooms():
                 'Beach' : [1434, 667, Dir.S],
                 'Mill' : [1065, 1017, Dir.N]
                 },
-            'music' : 'sounds/seawaves.mp3',
+            'music' : 'sounds/seawaves.ogg',
             'items' : {
                'deck' : {
                    'image' : 'images/xxx.png',
@@ -1156,7 +1156,7 @@ def setRooms():
                 'End' : [730, 542, Dir.E],
                 'ForestBif' : [1162, 542, Dir.W]
                 },
-            'music' : 'sounds/waterfall.mp3',
+            'music' : 'sounds/waterfall.ogg',
             'items' : {
                'bridge' : {
                    'image' : 'images/xxx.png',
@@ -1196,7 +1196,7 @@ def setRooms():
             'from' : {
                 'Waterfall' : [1382, 648, Dir.W]
                 },
-            'music' : 'sounds/magical.mp3',
+            'music' : 'sounds/magical.ogg',
             'items' : {            
               }
             }
