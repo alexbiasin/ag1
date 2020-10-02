@@ -314,7 +314,7 @@ def main():  # type: () -> None
     global log_level
     global has_audio
 
-    log_level = 'DEBUG' # NONE , INFO , DEBUG
+    log_level = 'NONE' # NONE , INFO , DEBUG
     # En pygame:
     #  - se usa Surface para representar la "apariencia", y
     #  - se usa Rect para representar la posicion, de un objeto.
