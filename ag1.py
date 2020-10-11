@@ -1,4 +1,15 @@
 # Autor: Alejandro Biasin, 2020
+# AG1 - Aventura grafica 1.
+# Features:
+#  - Movimiento del player con cursores, y escritura de comandos con teclado.
+#  - Layers para que objetos eclipsen al player.
+#  - El player solo se "anima" al caminar. No se hacen gestos ni acciones especificas.
+#  - No hay que estar "cerca" de un objeto/item para interactuar.
+#  - No hay scroll de pantalla. Son screens simples.
+#  - No hay mas sprites que el del player.
+#  - No hay "open" de puertas, sino que se usa el "use X with Y".
+#  - Posee inventario grafico.
+#  - Textos descriptivos (a velocidad fija e idioma ingles).
 from __future__ import division
 import pygame_textinput
 # https://github.com/Nearoo/pygame-text-input
